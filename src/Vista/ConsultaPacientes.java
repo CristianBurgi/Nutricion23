@@ -338,33 +338,35 @@ public class ConsultaPacientes extends javax.swing.JInternalFrame {
 
     private void btnAgregarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) tablaPacientes.getModel();
-        Integer idPaciente = (Integer) modelo.getValueAt(tablaPacientes.getSelectedRow(), 0);
+        int dni =  (int) modelo.getValueAt(tablaPacientes.getSelectedRow(), 2);
 
-        if (!idPaciente.toString().isEmpty()) {
+        
 
             GestionDieta gs = new GestionDieta();
             ControlaInstancia(gs);
 
             PacienteService ps = new PacienteService();
             Paciente p = new Paciente();
-            p = ps.buscarPacientePorID(idPaciente);
+            p = ps.buscarPacientePorDNI(dni);
 
-            GestionDieta.cmbPaciente.removeAllItems();
+//            GestionDieta.cmbPaciente.removeAllItems();
             GestionDieta.cmbPaciente.addItem(p);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un Paciente");
-        }
+//            this.dispose();
+       
+         
     }//GEN-LAST:event_btnAgregarDActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
         PacienteService ps = new PacienteService();
         DefaultTableModel modelo = (DefaultTableModel) tablaPacientes.getModel();
-        int idPaciente = (int) modelo.getValueAt(tablaPacientes.getSelectedRow(), 0);
+        int idPaciente = (int) modelo.getValueAt(tablaPacientes.getSelectedRow(), 2);
 
+        Paciente p = new Paciente();
+        p = ps.buscarPacientePorDNI(idPaciente);
+        
         if (JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE ELIMINAR PACIENTE?", "SALIR", JOptionPane.YES_NO_CANCEL_OPTION) == 0) {
-            ps.eliminarPaciente(idPaciente);
+            ps.eliminarPaciente(p.getIdPaciente());
             llenarTablaTodos();
 
         }

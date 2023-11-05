@@ -20,6 +20,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        
         panelConsultas.setVisible(false);
     }
 
